@@ -1,0 +1,34 @@
+import { createBrowserRouter, RouterProvider, Outlet, Link } from 'react-router-dom';
+import BoardList from './board/BoardList';
+import BoardDetail from './board/BoardDetail';
+import BoardWrite from './board/BoardWrite';
+
+import "./App.css";
+
+const Layout = () => (
+  <>
+    <nav>
+      <Link to="/list">게시판 목록</Link> | 
+      <Link to="/detail/3">게시판 상세</Link> | 
+      <Link to="/write">게시판 글쓰기</Link>
+    </nav>
+    <Outlet />
+  </>
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "", element: <BoardList /> },
+      { path: "list", element: <BoardList /> },
+      { path: "detail/:boardIdx", element: <BoardDetail /> },
+      { path: "write", element: <BoardWrite /> },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
+}
